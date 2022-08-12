@@ -1,5 +1,9 @@
-import UserController from "./UserController"
+import UserController from "./UserController";
+import UserSettingController from "./UserSettingController";
+import UserEmailSettingController from "./UserEmailSettingController";
 
-export default{
-    UserController,
-}
+export default {
+  UserController,
+  UserSettingController,
+  UserEmailSettingController,
+};

@@ -37,6 +37,7 @@ app.use(async (req, res, next) => {
 
 // call routes
 app.use(config.URL_DOMAIN + "/auth", routes.UserRoute);
+app.use(config.URL_DOMAIN + "/app/setting", routes.UserSettingRoute);
 
 //use middleware to handle error from others modules
 app.use(middleware.handleError);
