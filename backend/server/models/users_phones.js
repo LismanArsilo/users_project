@@ -12,7 +12,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     uspo_number: {
       type: DataTypes.STRING(15),
-      allowNull: false
+      allowNull: false,
+      primaryKey: true
     },
     uspo_modified_date: {
       type: DataTypes.DATE,
@@ -37,6 +38,7 @@ module.exports = function(sequelize, DataTypes) {
         unique: true,
         fields: [
           { name: "uspo_entity_id" },
+          { name: "uspo_number" },
         ]
       },
     ]

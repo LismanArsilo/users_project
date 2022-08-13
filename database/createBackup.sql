@@ -184,14 +184,15 @@ CREATE TABLE users_roles(
 
 
 create table users_phones(
-	uspo_entity_id integer primary key,
-	uspo_number varchar(15) not null,
+	uspo_entity_id integer,
+	uspo_number varchar(15),
 	uspo_modified_date timestamp,
 	uspo_ponty_code varchar(15) not null,
+	primary key (uspo_entity_id, uspo_number),
 	foreign key(uspo_entity_id) references users(user_entity_id) on update cascade on delete cascade,
 	foreign key(uspo_ponty_code) references phone_number_type(ponty_code) on update cascade on delete cascade
-	
 );
+-- perbaikan pembuatan primary key
 
 CREATE TABLE users_experiences(
     usex_id SERIAL,

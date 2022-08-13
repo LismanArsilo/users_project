@@ -3,7 +3,10 @@ import IndexController from "../controllers/IndexController";
 
 const router = Router();
 router.get("/:id", IndexController.UserSettingController.findOne);
-router.put("/:id", IndexController.UserSettingController.updatePhone);
+// Route untuk phone
+router.put("/:id", IndexController.UserPhoneSettingController.updatePhone);
+router.post("/:id", IndexController.UserPhoneSettingController.createPhone);
+// Route untuk email
 router.put(
   "/:id/email/:email",
   IndexController.UserEmailSettingController.updateEmail

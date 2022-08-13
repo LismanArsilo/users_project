@@ -38,7 +38,11 @@ const findOne = async (req, res) => {
           },
           {
             model: req.context.models.users_phones,
-            as: "users_phone",
+            as: "users_phones",
+            include: {
+              model: req.context.models.phone_number_type,
+              as: "uspo_ponty_code_phone_number_type",
+            },
           },
         ],
       },
@@ -50,24 +54,24 @@ const findOne = async (req, res) => {
   }
 };
 
-const updatePhone = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const phone_number = await req.context.models.users_phones.update(
-      {
-        uspo_number: req.body.uspo_number,
-        uspo_modified_date: new Date(),
-        uspo_ponty_code: req.body.uspo_ponty_code,
-      },
-      { returning: true, where: { uspo_entity_id: id } }
-    );
-    return res.send(phone_number);
-  } catch (error) {
-    return res.status(404).send(error);
-  }
-};
+// const updatePhone = async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const phone_number = await req.context.models.users_phones.update(
+//       {
+//         uspo_number: req.body.uspo_number,
+//         uspo_modified_date: new Date(),
+//         uspo_ponty_code: req.body.uspo_ponty_code,
+//       },
+//       { returning: true, where: { uspo_entity_id: id } }
+//     );
+//     return res.send(phone_number);
+//   } catch (error) {
+//     return res.status(404).send(error);
+//   }
+// };
 
 export default {
   findOne,
-  updatePhone,
+  // updatePhone,
 };

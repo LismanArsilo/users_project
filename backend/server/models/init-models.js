@@ -907,8 +907,8 @@ function initModels(sequelize) {
     as: "uspo_entity",
     foreignKey: "uspo_entity_id",
   });
-  users.hasOne(users_phones, {
-    as: "users_phone",
+  users.hasMany(users_phones, {
+    as: "users_phones",
     foreignKey: "uspo_entity_id",
   });
   users_roles.belongsTo(users, {
@@ -1011,6 +1011,7 @@ function initModels(sequelize) {
 // module.exports = initModels;
 // module.exports.initModels = initModels;
 // module.exports.default = initModels;
+
 const models = initModels(sequelize);
 export default models;
 export { sequelize };
