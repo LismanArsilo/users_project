@@ -1,3 +1,7 @@
 - karena 1 route ambigu ketika post
 - ketika findOne di edit nanti belum jelas
 - update nextnya belum jalan (Sudah jalan tetapi address pk.nya bertambah tidak boleh sama jadi masuk ke id yang lain alamatnya)
+
+note 2
+
+- perbaikan address

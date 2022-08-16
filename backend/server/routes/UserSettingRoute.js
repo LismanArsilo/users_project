@@ -84,7 +84,7 @@ router.post(
   "/:id/experiences/",
   IndexController.UserExperienceSettingController.createExperiences
 );
-router.post(
+router.put(
   "/:id/experiences/:experiences",
   IndexController.UserExperienceSettingController.updateExperiences
 );
