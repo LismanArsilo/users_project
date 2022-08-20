@@ -4,6 +4,7 @@ import UploadDownloadHelper from "../helpers/UploadDownloadHelper";
 
 const router = Router();
 
+router.get("/", IndexController.UserSettingController.findAll);
 router.get("/:id", IndexController.UserSettingController.findOne);
 // Address masih belum fix pembuatan alurnya
 router.post(
