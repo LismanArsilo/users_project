@@ -40,6 +40,16 @@ const findOne = async (req, res) => {
         {
           model: req.context.models.users_skill,
           as: "users_skills",
+          // include: [
+          //   {
+          //     model: req.context.models.skill_type,
+          //     as: "uski_skty_name_skill_type",
+          //     include: {
+          //       model: req.context.models.skill_template,
+          //       as: "skill_templates",
+          //     },
+          //   },
+          // ],
         },
         {
           model: req.context.models.users_phones,

@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import config from "../../../config/config";
 import { useDispatch, useSelector } from "react-redux";
-import { GetOneUserSettingRequest } from "../../../redux-saga/actions/UserSetting";
+import {
+  GetOneUserSettingRequest,
+  DelUserSettingRequest,
+} from "../../../redux-saga/actions/UserSetting";
 
 export default function Setting() {
   const dispatch = useDispatch();
@@ -10,9 +15,13 @@ export default function Setting() {
     dispatch(GetOneUserSettingRequest(1));
   }, []);
 
+  const onDeletedEmail = async (id, email) => {
+    dispatch(DelUserSettingRequest(id, email));
+  };
+
   console.info(user);
   return (
-    <div className="">
+    <div>
       <div className="border border-slate-300 pl-6 border-b-slate-600 ">
         {/* Logo */}
         <div className="mt-6 flex border-b-2">
@@ -42,8 +51,24 @@ export default function Setting() {
             </p>
             {/* Foto dan text */}
             <div className="my-7 flex">
-              <span className="border border-slate-500 p-9 rounded-full ml-8"></span>
-              <div className="ml-6 ">
+              <div>
+                {user.user_photo ? (
+                  <img
+                    className="ml-7 rounded-full h-24 border-2"
+                    src={`${config.domain}/setting/${user.user_entity_id}/images/${user.user_photo}`}
+                    height={100}
+                    width={100}
+                    crossOrigin="anonymous"
+                  ></img>
+                ) : (
+                  <div className="mt-6">
+                    <span className="ml-10 px-2 py-6 border border-slate-600 rounded-full text-xs">
+                      No Profile
+                    </span>
+                  </div>
+                )}
+              </div>
+              <div className="ml-6 mt-9">
                 <p>{user.user_name}</p>
                 <p>Kandidat Bootcamp</p>
               </div>
@@ -87,7 +112,19 @@ export default function Setting() {
                         </div>
                         <div>
                           <button className="mr-2">/ Edit</button>
-                          <button className="ml-2">X Delete</button>
+                          <button
+                            onClick={() => {
+                              if (window.confirm("Delete this record")) {
+                                onDeletedEmail(
+                                  user.user_entity_id,
+                                  email.pmail_id
+                                );
+                              }
+                            }}
+                            className="ml-2"
+                          >
+                            X Delete
+                          </button>
                         </div>
                       </div>
                     );

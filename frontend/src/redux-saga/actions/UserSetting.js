@@ -24,3 +24,19 @@ export const GetOneUserSettingFailed = (payload) => ({
   type: ActionType.GETONE_USER_SETING_FAILED,
   payload,
 });
+
+export const DelUserSettingRequest = (payload, email) => ({
+  type: ActionType.DEL_EMAIL_SETING_REQUEST,
+  payload,
+  email,
+});
+export const DelUserSettingSuccess = (payload, email) => ({
+  type: ActionType.DEL_EMAIL_SETING_SUCCESS,
+  payload,
+  email,
+});
+export const DelUserSettingFailed = (payload, email) => ({
+  type: ActionType.DEL_EMAIL_SETING_FAILED,
+  payload,
+  email,
+});

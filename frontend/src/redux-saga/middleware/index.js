@@ -6,6 +6,7 @@ import { handleSignup, handleSignin, handleSignout } from "./UserSaga";
 import {
   handleGetOneUserSetting,
   handleGetUserSetting,
+  handleDelUserSetting,
 } from "./UserSettingMiddle";
 
 export default function* watchAll() {
@@ -20,6 +21,10 @@ export default function* watchAll() {
     takeEvery(
       ActionTypeUserSetting.GETONE_USER_SETING_REQUEST,
       handleGetOneUserSetting
+    ),
+    takeEvery(
+      ActionTypeUserSetting.DEL_EMAIL_SETING_REQUEST,
+      handleDelUserSetting
     ),
   ]);
 }

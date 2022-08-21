@@ -45,9 +45,26 @@ const updateProfile = async (req, res) => {
     return res.status(404).send(error);
   }
 };
+const updateNoProfile = async (req, res) => {
+  try {
+    const userNoProfile = await req.context.models.users.update(
+      {
+        user_name: req.body.user_name,
+        user_first_name: req.body.user_first_name,
+        user_last_name: req.body.user_last_name,
+        user_modified_date: new Date(),
+      },
+      { returning: true, where: { user_entity_id: req.params.id } }
+    );
+    return res.send(userNoProfile);
+  } catch (error) {
+    return res.status(404).send(error);
+  }
+};
 
 export default {
   findOneUser,
   createPassword,
   updateProfile,
+  updateNoProfile,
 };

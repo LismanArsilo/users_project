@@ -5,6 +5,8 @@ import {
   GetUserSettingFailed,
   GetOneUserSettingSuccess,
   GetOneUserSettingFailed,
+  DelUserSettingSuccess,
+  DelUserSettingFailed,
 } from "../actions/UserSetting";
 
 function* handleGetUserSetting() {
@@ -26,4 +28,15 @@ function* handleGetOneUserSetting(action) {
   }
 }
 
-export { handleGetUserSetting, handleGetOneUserSetting };
+function* handleDelUserSetting(action) {
+  const { payload } = action;
+  const { email } = action;
+  try {
+    yield call(apiUserSetting.deletedEmail, payload, email);
+    yield put(DelUserSettingSuccess(payload, email));
+  } catch (error) {
+    yield put(DelUserSettingFailed(error));
+  }
+}
+
+export { handleGetUserSetting, handleGetOneUserSetting, handleDelUserSetting };

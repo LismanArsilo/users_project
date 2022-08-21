@@ -1,7 +1,7 @@
 const findOneEmail = async (req, res) => {
   try {
-    const user_email = await req.context.models.users_email.findOne({
-      where: { pmail_entity_id: req.params.id, pmail_id: req.params.email },
+    const user_email = await req.context.models.users_email.findAll({
+      where: { pmail_entity_id: req.params.id },
     });
     return res.send(user_email);
   } catch (error) {
@@ -24,7 +24,7 @@ const createEmail = async (req, res) => {
 };
 const updateEmail = async (req, res) => {
   try {
-    const updateEmail = await req.context.models.users_email.update(
+    const userEmail = await req.context.models.users_email.update(
       {
         pmail_entity_id: req.params.id,
         pmail_address: req.body.pmail_address,
@@ -32,7 +32,7 @@ const updateEmail = async (req, res) => {
       },
       { returning: true, where: { pmail_id: req.params.email } }
     );
-    return res.send(updateEmail);
+    return res.send(userEmail);
   } catch (error) {
     return res.status(404).json(error.messagge);
   }
@@ -40,7 +40,7 @@ const updateEmail = async (req, res) => {
 // bug id 3 tidak dapat di update
 const deletedEmail = async (req, res) => {
   try {
-    const deletedEmail = await req.context.models.users_email.destroy({
+    const userEmail = await req.context.models.users_email.destroy({
       where: { pmail_id: req.params.email },
     });
     return res.send(`Deleted Success`);

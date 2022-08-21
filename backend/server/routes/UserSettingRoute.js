@@ -42,7 +42,7 @@ router.delete(
 
 // Route untuk email
 router.get(
-  "/:id/email/:email",
+  "/:id/email/",
   IndexController.UserEmailSettingController.findOneEmail
 );
 router.put(
@@ -114,10 +114,16 @@ router.get(
   "/:id/profile",
   IndexController.UserProfileSettingController.findOneUser
 );
+router.get("/:id/images/:filename", UploadDownloadHelper.showProductImage);
+
 router.put(
-  "/:id/profile",
+  "/:id/images",
   UploadDownloadHelper.uploadSingleFile,
   IndexController.UserProfileSettingController.updateProfile
+);
+router.put(
+  "/:id/images",
+  IndexController.UserProfileSettingController.updateNoProfile
 );
 
 export default router;
