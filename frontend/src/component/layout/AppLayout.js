@@ -243,7 +243,7 @@ export default function AppLayout() {
                         <span className="flex min-w-0 items-center justify-between space-x-3">
                           <img
                             className="w-10 h-10 bg-gray-300 object-cover rounded-full flex-shrink-0"
-                            src="../assets/images/yuri.jpg"
+                            src="../../assets/images/yuri.jpg"
                             alt=""
                           />
                           <span className="flex-1 flex flex-col min-w-0">

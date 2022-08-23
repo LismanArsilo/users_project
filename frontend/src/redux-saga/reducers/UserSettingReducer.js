@@ -17,7 +17,11 @@ const userSettingReducer = (state = INIT_STATE, action) => {
     case ActionType.DEL_EMAIL_SETING_REQUEST:
       return { ...state };
     case ActionType.DEL_EMAIL_SETING_SUCCESS:
-      return DelUserSettingSuccedd(state, action);
+      return DelUserEmailSettingSuccedd(state, action);
+    case ActionType.DEL_PHONE_SETING_REQUEST:
+      return { ...state };
+    case ActionType.DEL_PHONE_SETING_SUCCESS:
+      return DelUserPhoneSettingSuccedd(state, action);
     default:
       return GetUserSettingSuccedd(state, action);
   }
@@ -36,15 +40,29 @@ const GetOneUserSettingSuccedd = (state, action) => {
     user: action.payload,
   };
 };
-const DelUserSettingSuccedd = (state, action) => {
+const DelUserEmailSettingSuccedd = (state, action) => {
   const { email } = action;
-  const filterUserEmail = state.user.users_emails.filter(
-    (el) => el.pmail_id !== email
-  );
-  console.info(filterUserEmail);
+  const { users_emails } = state.user;
+  const filterUserEmail = users_emails.filter((el) => el.pmail_id !== email);
+  const allUser = state.user;
+  allUser.users_emails = [...filterUserEmail];
+
   return {
     ...state,
-    user: [...filterUserEmail],
+    // user: [(allUser.users_emails = [...filterUserEmail])],
+  };
+};
+const DelUserPhoneSettingSuccedd = (state, action) => {
+  const { phone } = action;
+  const { users_phones } = state.user;
+  const filterUserPhone = users_phones.filter((el) => el.uspo_number !== phone);
+  const allUser = state.user;
+  console.info(filterUserPhone);
+  allUser.users_phones = [...filterUserPhone];
+
+  return {
+    ...state,
+    // user: [(allUser.users_emails = [...filterUserEmail])],
   };
 };
 

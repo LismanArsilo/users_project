@@ -5,8 +5,10 @@ import {
   GetUserSettingFailed,
   GetOneUserSettingSuccess,
   GetOneUserSettingFailed,
-  DelUserSettingSuccess,
-  DelUserSettingFailed,
+  DelUserEmailSettingSuccess,
+  DelUserEmailSettingFailed,
+  DelUserPhoneSettingSuccess,
+  DelUserPhoneSettingFailed,
 } from "../actions/UserSetting";
 
 function* handleGetUserSetting() {
@@ -28,15 +30,31 @@ function* handleGetOneUserSetting(action) {
   }
 }
 
-function* handleDelUserSetting(action) {
+function* handleDelUserEmailSetting(action) {
   const { payload } = action;
   const { email } = action;
   try {
     yield call(apiUserSetting.deletedEmail, payload, email);
-    yield put(DelUserSettingSuccess(payload, email));
+    yield put(DelUserEmailSettingSuccess(payload, email));
   } catch (error) {
-    yield put(DelUserSettingFailed(error));
+    yield put(DelUserEmailSettingFailed(error));
   }
 }
 
-export { handleGetUserSetting, handleGetOneUserSetting, handleDelUserSetting };
+function* handleDelUserPhoneSetting(action) {
+  const { payload } = action;
+  const { phone } = action;
+  try {
+    yield call(apiUserSetting.deletedPhone, payload, phone);
+    yield put(DelUserPhoneSettingSuccess(payload, phone));
+  } catch (error) {
+    yield put(DelUserPhoneSettingFailed(error));
+  }
+}
+
+export {
+  handleGetUserSetting,
+  handleGetOneUserSetting,
+  handleDelUserEmailSetting,
+  handleDelUserPhoneSetting,
+};

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import config from "../../../config/config";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import {
   GetOneUserSettingRequest,
-  DelUserSettingRequest,
+  DelUserEmailSettingRequest,
+  DelUserPhoneSettingRequest,
 } from "../../../redux-saga/actions/UserSetting";
 
 export default function Setting() {
@@ -16,7 +17,10 @@ export default function Setting() {
   }, []);
 
   const onDeletedEmail = async (id, email) => {
-    dispatch(DelUserSettingRequest(id, email));
+    dispatch(DelUserEmailSettingRequest(id, email));
+  };
+  const onDeletedPhone = async (id, phone) => {
+    dispatch(DelUserPhoneSettingRequest(id, phone));
   };
 
   console.info(user);
@@ -39,8 +43,8 @@ export default function Setting() {
       {/* container profile */}
       <div className="border border-slate-300 ">
         {/* countainer rounded */}
-        <div className="border border-slate-800 mx-2 mt-2 rounded-t-2xl ">
-          <div className="">
+        <div className="border border-slate-800 mx-2 mr-6 mt-2 rounded-2xl mb-7 ">
+          <div>
             <p className="border border-slate-500 mt-5 p-1 pl-2 font-semibold">
               Profile
             </p>
@@ -96,10 +100,10 @@ export default function Setting() {
               <button className="mr-5">+ Add</button>
             </div>
             <div className="flex mt-6">
-              <div className="pl-6">
+              <div className="pl-6 w-2/12">
                 <p className="mr-9">Your Emails :</p>
               </div>
-              <div className="">
+              <div className="w-10/12">
                 {user.users_emails &&
                   user.users_emails.map((email, index) => {
                     return (
@@ -110,11 +114,11 @@ export default function Setting() {
                         <div>
                           <p>{email.pmail_address}</p>
                         </div>
-                        <div>
+                        <div className="mr-4">
                           <button className="mr-2">/ Edit</button>
                           <button
                             onClick={() => {
-                              if (window.confirm("Delete this record")) {
+                              if (window.confirm("Delete this record ?")) {
                                 onDeletedEmail(
                                   user.user_entity_id,
                                   email.pmail_id
@@ -140,16 +144,16 @@ export default function Setting() {
               <button className="mr-5">+ Add</button>
             </div>
             <div className="flex mt-6">
-              <div className="pl-6">
+              <div className="pl-6 w-2/12">
                 <p className="mr-9">Your Phones :</p>
               </div>
-              <div className="">
+              <div className="w-10/12">
                 {user.users_phones &&
                   user.users_phones.map((phone, index) => {
                     return (
                       <div
                         key={index}
-                        className="border-b-2 grid grid-cols-3 mb-3 pl-2"
+                        className="flex justify-between border-b-2 mb-3 pl-2"
                       >
                         <div>
                           <p>
@@ -161,7 +165,19 @@ export default function Setting() {
                         </div>
                         <div className="mr-2 col-span-2 justify-items-end">
                           <button className="">/ Edit</button>
-                          <button className="ml-2 mr-2">X Delete</button>
+                          <button
+                            onClick={() => {
+                              if (window.confirm("Delete this record ?")) {
+                                onDeletedPhone(
+                                  phone.uspo_entity_id,
+                                  phone.uspo_number
+                                );
+                              }
+                            }}
+                            className="ml-2 mr-2"
+                          >
+                            X Delete
+                          </button>
                         </div>
                       </div>
                     );
@@ -177,27 +193,25 @@ export default function Setting() {
               <button className="mr-5">+ Add</button>
             </div>
             <div className="flex mt-6">
-              <div className="pl-6">
+              <div className="pl-6 w-2/12">
                 <p className="mr-9">Your Address :</p>
               </div>
-              <div className="">
+              <div className="w-10/12">
                 {user.users_addresses &&
                   user.users_addresses.map((address, index) => {
                     return (
                       <div
                         key={index}
-                        className=" grid grid-cols-3 border-b-2 mb-3 pl-2"
+                        className="flex justify-between border-b-2 mb-3 pl-2"
                       >
-                        <div className="grid grid-cols-1">
-                          <div>
-                            <p>{address.etad_addr.addr_line1}</p>
-                            <p>
-                              <span>City :</span>
-                              {address.etad_adty.adty_name}
-                            </p>
-                          </div>
+                        <div>
+                          <p>{address.etad_addr.addr_line1}</p>
+                          <p>
+                            <span>City :</span>
+                            {address.etad_adty.adty_name}
+                          </p>
                         </div>
-                        <div className="mr-2 place-items-end border border-slate-600 ">
+                        <div className="mr-2 borde mt-6">
                           <button>/ Edit</button>
                           <button className="ml-2 mr-2">X Delete</button>
                         </div>
@@ -209,8 +223,6 @@ export default function Setting() {
           </div>
           {/* End Address */}
           {/* Container Educations */}
-          {/* Container Experiences */}
-          {/* End Container Experiences */}
           <div>
             <div className="flex border border-slate-500 justify-between mt-5 py-1 pl-2 font-semibold ">
               <p>Educations</p>
@@ -247,10 +259,10 @@ export default function Setting() {
                         <p className="mr-16">Year</p>
                         <span className="ml-1"> : </span>
                         <p className="ml-3">
-                          {educ.usdu_start_date.slice(0, 4)}{" "}
+                          {moment(educ.usdu_start_date).format("YYYY")}
                         </p>
                         <span className="mx-2">Until</span>
-                        <p> {educ.usdu_end_date.slice(0, 4)} </p>
+                        <p>{moment(educ.usdu_end_date).format("YYYY")}</p>
                       </div>
                       <div className="flex ml-20 mb-2">
                         <p className="mr-11">Activity</p>
@@ -273,7 +285,79 @@ export default function Setting() {
           </div>
           {/* End Container Educations */}
           {/* Container Experiences */}
+          <div>
+            <div className="flex border border-slate-500 justify-between mt-5 py-1 pl-2 font-semibold ">
+              <p>Experiences</p>
+              <button className="mr-5">+ Add</button>
+            </div>
+            <div className="">
+              {user.users_experiences &&
+                user.users_experiences.map((expe, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="flex justify-between w-full border-b-2 mb-3 pl-14"
+                    >
+                      <div>
+                        <p className="font-bold text-lg">
+                          {expe.usex_industry}
+                        </p>
+                        <p>{expe.usex_profile_headline}</p>
+                        <p className="font-semibold text-lg">
+                          {expe.usex_company_name}
+                        </p>
+                        <p>
+                          {/* Moment js dependency untuk merubah tanggal */}
+                          <span>
+                            {moment(expe.usex_start_date).format("MMMM YYYY")}
+                          </span>
+                          <span className="mx-3">-</span>
+                          <span>
+                            {moment(expe.usex_end_date).format("MMMM YYYY")}
+                          </span>
+                        </p>
+                        <p>{expe.usex_city.city_name}</p>
+                      </div>
+                      <div className="mr-2 grid place-items-end">
+                        <div className="flex">
+                          <button>/ Edit</button>
+                          <button className="ml-2 mr-2">X Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
           {/* End Container Experiences */}
+          {/* Container Skills */}
+          <div>
+            <div className="flex border border-slate-500 justify-between mt-5 py-1 pl-2 font-semibold ">
+              <p>Skills</p>
+              <button className="mr-5">+ Add</button>
+            </div>
+            <div className="flex mt-6">
+              <div className="w-full">
+                {user.users_skills &&
+                  user.users_skills.map((skill, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="flex justify-between border-b-2 mb-3 pl-16 ml-2"
+                      >
+                        <div>
+                          <p>{skill.uski_skty_name}</p>
+                        </div>
+                        <div className="mr-2">
+                          <button className="ml-2 mr-2">X Delete</button>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </div>
+          {/* End Container Skills */}
         </div>
       </div>
     </div>

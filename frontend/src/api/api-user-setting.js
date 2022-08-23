@@ -29,8 +29,20 @@ const deletedEmail = async (id, email) => {
   }
 };
 
+const deletedPhone = async (id, phone) => {
+  try {
+    const result = await axios.delete(
+      `${config.domain}/setting/${id}/phone/${phone}`
+    );
+    return result;
+  } catch (error) {
+    return error.messagge;
+  }
+};
+
 export default {
   findOneUser,
   findAllUser,
   deletedEmail,
+  deletedPhone,
 };
