@@ -223,7 +223,7 @@ export default function AppLayout() {
             <Link to="/">
               <img
                 className="h-10 w-auto"
-                src="../assets/images/codeid.png"
+                src="../../assets/images/codeid.png"
                 alt="codeid"
               />
             </Link>

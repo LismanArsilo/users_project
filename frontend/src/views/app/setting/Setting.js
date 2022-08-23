@@ -29,7 +29,11 @@ export default function Setting() {
       <div className="border border-slate-300 pl-6 border-b-slate-600 ">
         {/* Logo */}
         <div className="mt-6 flex border-b-2">
-          <span className="border border-slate-500 p-5 rounded-full mr-5 mb-2"></span>
+          <img
+            className="h-10 w-auto "
+            src="../../assets/images/codeid.png"
+            alt="codeid"
+          />
           <p className="text-2xl mt-2 font-semibold mb-2">Code Academy</p>
         </div>
         <div>
